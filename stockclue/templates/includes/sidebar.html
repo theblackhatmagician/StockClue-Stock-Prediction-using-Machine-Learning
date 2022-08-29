@@ -1,0 +1,45 @@
+
+  {% if request.user.is_authenticated %}
+    <div class="sidebar">
+      <div class="sidebar-wrapper">
+        
+        <div class="logo">
+          </a>
+          <a target="_blank" 
+             href="https://www.investopedia.com/terms/s/stock.asp" class="simple-text logo-normal">
+            Stocks
+          </a>
+        </div>
+
+        <ul class="nav">
+        
+        <li class="{% if 'index' in segment %} active {% endif %} ">
+          <a href="/">
+            <i class="tim-icons icon-chart-pie-36"></i>
+            <p>Infosys</p>
+          </a>
+        </li>
+        <li class="{% if 'icons' in segment %} active {% endif %}">
+          <a href="/">
+            <i class="tim-icons icon-atom"></i>
+            <p>Wipro</p>
+          </a>
+        </li>
+        <li class="{% if 'maps' in segment %} active {% endif %}">
+          <a href="/">
+            <i class="tim-icons icon-pin"></i>
+            <p>TCS</p>
+          </a>
+        </li>
+        <li class="{% if 'notifications' in segment %} active {% endif %}">
+          <a href="/">
+            <i class="tim-icons icon-bell-55"></i>
+            <p>Tata</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+                    
+  
