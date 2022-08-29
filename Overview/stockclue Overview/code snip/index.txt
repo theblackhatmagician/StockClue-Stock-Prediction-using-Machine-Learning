@@ -1,0 +1,256 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} STOCKCLUE {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="row">
+
+      <div class="col-12">
+        <div class="card card-chart">
+          <div class="card-header ">
+            <div class="row">
+              <div class="col-sm-6 text-left">
+                <h5 class="card-category">Pattern Prediction</h5>
+                <h2 class="card-title">Stock Performance</h2>
+              </div>
+              <div class="col-sm-6">
+                <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                  <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                    <input type="radio" name="options" checked>
+                    <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Live Graph</span>
+                    <span class="d-block d-sm-none">
+                      <i class="tim-icons icon-single-02"></i>
+                    </span>
+                  </label>
+                  <label class="btn btn-sm btn-primary btn-simple" id="1">
+                    <input type="radio" class="d-none d-sm-none" name="options">
+                    <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">LSTM Prediction</span>
+                    <span class="d-block d-sm-none">
+                      <i class="tim-icons icon-gift-2"></i>
+                    </span>
+                  </label>
+                  <label class="btn btn-sm btn-primary btn-simple" id="2">
+                    <input type="radio" class="d-none" name="options">
+                    <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">XGBoost Prediction</span>
+                    <span class="d-block d-sm-none">
+                      <i class="tim-icons icon-tap-02"></i>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="chartBig1" class="chart-area">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h5 class="card-category">{{stockdata.8}}</h5>
+            <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> Stock Data</h3>
+          </div>
+          <div class="table-full-width table-responsive">
+            <div class="chart-area">
+              <table class = "table">
+              <tbody>
+                <tr>
+                  <td>
+                    <p class="title">Open : {{stockdata.0}}</p>
+                  </td>
+                  <td>
+                    <p class="title">Close : {{stockdata.1}}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="title">Last price : {{stockdata.2}}</p>
+                  </td>
+                  <td>
+                    <p class="title">Day High : {{stockdata.3}}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="title">Day Low : {{stockdata.4}}</p>
+                  </td>
+                  <td>
+                    <p class="title">Quantity : {{stockdata.5}}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="title">Previous Close : {{stockdata.6}}</p>
+                  </td>
+                  <td>
+                    <p class="title">Average Price : {{stockdata.7}}</p>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h5 class="card-category">Time Series Prediction</h5>
+            <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> Indicators </h3>
+          </div>
+          <div class="card-body">
+            <div class="chart-area">
+              
+
+              <table class="table">
+              <tbody>
+                  <tr>
+                    <td>
+                      <p class="title">simple moving average (SMA)</p>
+                      <p class="text-muted">{{indicator.0}}</p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <p class="title">exponential moving average (EMA)</p>
+                      <p class="text-muted">{{indicator.1}}</p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <p class="title">moving average convergence / divergence (MACD)</p>
+                      <p class="text-muted">{{indicator.2}}</p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <p class="title">relative strength index (RSI)</p>
+                      <p class="text-muted">{{indicator.3}}</p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <p class="title">commodity channel index (CCI)</p>
+                      <p class="text-muted">{{indicator.4}}</p>
+                    </td>
+                  </tr>
+
+              </tbody>
+            </table>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h5 class="card-category">Prediction Details</h5>
+            <h3 class="card-title"><i class="tim-icons icon-send text-success"></i> Future Market</h3>
+          </div>
+          <div class="card-body">
+            <div class="chart-area">
+              <h3 class="title_predict"></i>Technical : {{tech}}<br>Sentimental : {{senti}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <div class="card card-tasks">
+          <div class="card-header ">
+            <h6 class="title d-inline">Stock News</h6>
+          </div>
+          <div class="card-body ">
+            <div class="table-full-width table-responsive">
+              <table class="table">
+                <tbody>
+
+
+                  {% for i in news %}
+                    <tr>
+                      <td>
+                        <p class="title">{{i.0}}</p>
+                        <p class="text-muted">{{i.1}}</p>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h5 class="card-category">Sentiment Analysis</h5>
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <tbody>
+                  <tr>
+                    <td>
+                      <p class="title">News Positivity</p>
+                      <p class="text-muted">{{newssenti.2}}%</p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <p class="title">News Neutral</p>
+                      <p class="text-muted">{{newssenti.1}}%</p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <p class="title">News Negativity</p>
+                      <p class="text-muted">{{newssenti.0}}%</p>
+                    </td>
+                  </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<!-- Candlestick  -->
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+<script>
+  $(document).ready(function() {
+    
+    stockCharts.initDashboardPageCharts({{realtimeGraphData|safe}},{{lstm|safe}},{{xgboost|safe}});
+
+  });
+</script>
+
+{% endblock javascripts %}

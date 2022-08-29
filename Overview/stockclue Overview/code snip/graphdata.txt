@@ -1,0 +1,29 @@
+def realTimeData():
+    url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-historical-data"
+
+    querystring = {"symbol":"INFY.NS","region":"IN"}
+
+    headers = {
+        'x-rapidapi-key': "a945ad3a16mshb1cdbceb72aec55p1f0e6bjsn3f852dd42dc9",
+        'x-rapidapi-host': "apidojo-yahoo-finance-v1.p.rapidapi.com"
+        }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    res = response.json()
+    r = []
+    if 'message' not in res.keys():
+        for i in res['prices']:
+            d = {}
+            if 'open' in i.keys():
+                if  i['close'] != None or i['open'] != None or i['high'] != None or i['low'] != None:
+                    d['time'] = i['date']
+                    d['open'] = float(i['open'])
+                    d['high'] = float(i['high'])
+                    d['low'] = float(i['low'])
+                    d['close'] = float(i['close'])
+                    r.append(d)
+    else:
+        print("can't fetch historic data")
+   
+    r.reverse()
+    return r

@@ -1,0 +1,26 @@
+def newsSenti(data):
+    clean_Text = []
+    for review in data:
+        clean_Text.append( " ".join(cleaning(str(review[0]))))
+
+    from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+    Senti = SentimentIntensityAnalyzer()
+    sample_review = clean_Text
+    count = 0
+    neg = 0
+    pos = 0
+    neu = 0
+    for sentence in sample_review:
+        ss = Senti.polarity_scores(sentence)
+        count += 1
+        neg += ss['neg']
+        neu += ss['neu']
+        pos += ss['pos']
+
+    sentiment = []
+    sentiment.append((neg/count)*100)
+    sentiment.append((neu/count)*100)
+    sentiment.append((pos/count)*100)
+
+    return sentiment
